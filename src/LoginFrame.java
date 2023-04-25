@@ -8,15 +8,16 @@ class LoginFrame extends JFrame implements ActionListener {
     private JLabel l_user, l_pwd;  //用户名标签，密码标签
     private JTextField t_user; //用户名文本框
     private JPasswordField t_pwd; //密码文本框
-    private JButton b_ok, b_cancel; //登录按钮，退出按钮
+    private JButton b_ok, b_cancel, b_register; //登录按钮，退出按钮
 
     public LoginFrame() {
         super("欢迎使用工资管理系统!");
         l_user = new JLabel("用户名：", JLabel.RIGHT);
         l_pwd = new JLabel(" 密码：", JLabel.RIGHT);
-        t_user = new JTextField(31);
-        t_pwd = new JPasswordField(31);
+        t_user = new JTextField(35);
+        t_pwd = new JPasswordField(36);
         b_ok = new JButton("登录");
+        b_register = new JButton("注册");
         b_cancel = new JButton("退出");
         //布局方式FlowLayout，一行排满排下一行
         Container c = this.getContentPane();
@@ -26,9 +27,11 @@ class LoginFrame extends JFrame implements ActionListener {
         c.add(l_pwd);
         c.add(t_pwd);
         c.add(b_ok);
+        c.add(b_register);
         c.add(b_cancel);
         //为按钮添加监听事件
         b_ok.addActionListener(this);
+        b_register.addActionListener(this);
         b_cancel.addActionListener(this);
         //界面大小不可调整
         this.setResizable(false);
@@ -50,6 +53,8 @@ class LoginFrame extends JFrame implements ActionListener {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else if (b_register == e.getSource()){
+            //注册界面
         }
     }
 }
