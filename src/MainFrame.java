@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 //主界面
 class MainFrame extends JFrame implements ActionListener {
@@ -16,9 +19,16 @@ class MainFrame extends JFrame implements ActionListener {
     private JPanel p_condition, p_detail;
     private JTable table;
 
-    public MainFrame(String username) {
+    public MainFrame(String username) throws Exception {
         super(username + "欢迎使用企业员工工资管理系统!");
+        //连接数据库
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://123.60.142.8:3306/hov";
+        String sqlUsername = "hov";
+        String password = "NX6f8baShtXnFEKj";
+        Connection conn = DriverManager.getConnection(url,sqlUsername,password);
         Container c = this.getContentPane();
+
         c.setLayout(new BorderLayout());
         c.add(mb, BorderLayout.NORTH);
         mb.add(m_system);
@@ -84,7 +94,9 @@ class MainFrame extends JFrame implements ActionListener {
 
 
         //添加代码，将所有员工工资信息显示在界面表格中
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Statement stmt = conn.createStatement();
+        ViewStaff viewStaff = new ViewStaff(username,stmt);
+
 
 
         this.setResizable(true);
