@@ -42,10 +42,14 @@ class LoginFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (b_cancel == e.getSource()) {
             //添加退出代码
-
+            System.exit(1);
         } else if (b_ok == e.getSource()) {
             //添加代码，验证身份成功后显示主界面
-            new MainFrame(t_user.getText().trim());
+            try {
+                new MainFrame(t_user.getText().trim());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
