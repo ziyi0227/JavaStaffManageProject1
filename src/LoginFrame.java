@@ -12,6 +12,16 @@ class LoginFrame extends JFrame implements ActionListener {
 
     public LoginFrame() {
         super("员工工资管理系统 登录");
+
+        /*窗体的基本设置*/
+        this.setResizable(false);
+        this.setSize(500, 400);
+        Dimension screen = this.getToolkit().getScreenSize();
+        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+
         l_user = new JLabel("用户名：", JLabel.RIGHT);
         l_pwd = new JLabel(" 密码：", JLabel.RIGHT);
         t_user = new JTextField(35);
@@ -33,15 +43,6 @@ class LoginFrame extends JFrame implements ActionListener {
         b_ok.addActionListener(this);
         b_register.addActionListener(this);
         b_cancel.addActionListener(this);
-        //界面大小不可调整
-        this.setResizable(false);
-        this.setSize(500, 400);
-        //界面显示居中
-        Dimension screen = this.getToolkit().getScreenSize();
-        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
-        this.setVisible(true);
-        //界面关闭
-        this.setDefaultCloseOperation(3);
     }
 
     public void actionPerformed(ActionEvent e) {
