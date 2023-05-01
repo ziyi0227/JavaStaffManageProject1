@@ -84,7 +84,7 @@ class LoginFrame extends JFrame implements ActionListener {
     }
     private void InitImage() {
         //创建一个图片对象
-        ImageIcon icon = new ImageIcon("G:\\.ChenHuangWei\\Develop\\JavaStaffManageProject1\\Image\\LoginFrameCover.png");
+        ImageIcon icon = new ImageIcon("..\\JavaStaffManageProject1\\Image\\LoginFrameCover.png");
         //创建一个JLable对象
         JLabel jLabel = new JLabel(icon);
         //指定图片位置
@@ -97,10 +97,11 @@ class LoginFrame extends JFrame implements ActionListener {
 
     //按钮监听功能实现
     public void actionPerformed(ActionEvent e) {
-        if (b_signup == e.getSource()) {
+        Object source = e.getSource();
+        if (b_signup == source) {
             //注册界面
             new SignupFrame();
-        } else if (b_login == e.getSource()) {
+        } else if (b_login == source) {
             //添加代码，验证身份成功后显示主界面
             try {
                 new MainFrame(t_user.getText().trim());
