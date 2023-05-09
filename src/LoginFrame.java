@@ -58,7 +58,7 @@ class LoginFrame extends JFrame implements ActionListener {
 
     private void InitFrame() {
         // 设置窗体大小和位置
-        this.setSize(700, 400);
+        this.setSize(700, 450);
         this.setLocationRelativeTo(null);
 
         // 获取内容面板，并使用 null 布局管理器
@@ -91,6 +91,8 @@ class LoginFrame extends JFrame implements ActionListener {
         jLabel.setBounds(0, 0, 350, 400);
         //添加到界面中
         this.getContentPane().add(jLabel);
+        // 调用repaint()方法刷新窗口
+        this.repaint();
         //使图片可见
         this.setVisible(true);
     }
