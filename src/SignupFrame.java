@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class SignupFrame extends JFrame {
     public SignupFrame(){
-        super("员工工资管理系统 注册");
+        super("\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf \u6ce8\u518c");
         InitFrame();
     }
 
