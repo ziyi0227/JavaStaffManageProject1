@@ -27,6 +27,7 @@ class MainFrame extends JFrame implements ActionListener {
         String sqlUsername = "hov";
         String password = "NX6f8baShtXnFEKj";
         Connection conn = DriverManager.getConnection(url,sqlUsername,password);
+
         Container c = this.getContentPane();
 
         c.setLayout(new BorderLayout());

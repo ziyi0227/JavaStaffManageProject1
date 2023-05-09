@@ -14,6 +14,8 @@ class LoginFrame extends JFrame implements ActionListener {
     JPasswordField t_pass = new JPasswordField();
     JButton b_signup = new JButton("注册");
     JButton b_login = new JButton("登录");
+    JButton b_find = new JButton("找回密码");
+    JButton b_modify = new JButton("修改密码");
 
 
     public LoginFrame() {
@@ -28,6 +30,10 @@ class LoginFrame extends JFrame implements ActionListener {
         //为按钮添加监听事件
         b_signup.addActionListener(this);
         b_login.addActionListener(this);
+        b_modify.addActionListener(this);
+        b_find.addActionListener(this);
+
+        this.setVisible(true);
     }
 
  /*   private void InitFrame() {
@@ -58,8 +64,9 @@ class LoginFrame extends JFrame implements ActionListener {
 
     private void InitFrame() {
         // 设置窗体大小和位置
-        this.setSize(700, 450);
+        this.setSize(700, 440);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         // 获取内容面板，并使用 null 布局管理器
         Container contentPane = this.getContentPane();
@@ -69,8 +76,10 @@ class LoginFrame extends JFrame implements ActionListener {
         t_user.setBounds(470, 100, 180, 30);
         l_pass.setBounds(380, 170, 80, 30);
         t_pass.setBounds(470, 170, 180, 30);
-        b_signup.setBounds(420, 260, 80, 30);
-        b_login.setBounds(550, 260, 80, 30);
+        b_signup.setBounds(410, 260, 80, 30);
+        b_login.setBounds(540, 260, 80, 30);
+        b_modify.setBounds(500, 380, 90, 20);
+        b_find.setBounds(590, 380, 90, 20);
 
         contentPane.add(l_user);
         contentPane.add(t_user);
@@ -78,17 +87,21 @@ class LoginFrame extends JFrame implements ActionListener {
         contentPane.add(t_pass);
         contentPane.add(b_signup);
         contentPane.add(b_login);
+        contentPane.add(b_find);
+        contentPane.add(b_modify);
 
         // 设置窗体可见性
         this.setVisible(true);
     }
+
     private void InitImage() {
         //创建一个图片对象
+        //ImageIcon icon = new ImageIcon("G:\\.ChenHuangWei\\Develop\\JavaStaffManageProject1\\Image\\LoginFrameCover.png");
         ImageIcon icon = new ImageIcon("..\\JavaStaffManageProject1\\Image\\LoginFrameCover.png");
         //创建一个JLable对象
         JLabel jLabel = new JLabel(icon);
         //指定图片位置
-        jLabel.setBounds(0, 0, 350, 400);
+        jLabel.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
         //添加到界面中
         this.getContentPane().add(jLabel);
         // 调用repaint()方法刷新窗口
@@ -110,6 +123,11 @@ class LoginFrame extends JFrame implements ActionListener {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else if (b_modify == source) {
+            new ModifyPwdFrame();
+        } else if (b_find == source) {
+            //找回密码界面
         }
     }
 }
+
