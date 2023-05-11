@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-public class SignupFrame extends JFrame {
+public class SignupFrame extends JFrame implements ActionListener{
     JLabel l_newUser = new JLabel("\u7528\u6237\u540d\uff1a");//用户名
     JTextField t_newUser = new JTextField();
     JLabel l_newPassword = new JLabel("\u5bc6\u7801\uff1a");//密码
@@ -15,11 +15,13 @@ public class SignupFrame extends JFrame {
     JLabel l_email = new JLabel("\u90ae\u7bb1\uff1a");//再次输入密码
     JTextField t_email = new JTextField();
     JButton b_register = new JButton("\u786e\u8ba4\u6ce8\u518c");//确认注册
+    JDialog d_successRegister = new JDialog(this,"员工工资管理系统");
     public SignupFrame(){
         super("\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf \u6ce8\u518c");
         InitFrame();
-
         InitImage();
+
+        b_register.addActionListener(this);
     }
 
     private void InitFrame() {
@@ -70,5 +72,18 @@ public class SignupFrame extends JFrame {
         this.repaint();
         //使图片可见
         this.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == b_register){
+            //判断账号是否被注册（false待更换）
+            if (false){
+                //待添加代码
+            } else {
+                //待添加代码
+            }
+        }
     }
 }
