@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 //主界面
@@ -94,9 +95,19 @@ class MainFrame extends JFrame implements ActionListener {
         c.add(p_detail, BorderLayout.SOUTH);
 
 
-//        //添加代码，将所有员工工资信息显示在界面表格中
-//        Statement stmt = conn.createStatement();
-//        ViewStaff viewStaff = new ViewStaff(username,stmt);
+        //添加代码，将所有员工工资信息显示在界面表格中
+        String sql = "SELECT * FROM salary";
+        Statement stmt = SalaryManager.conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        int row1 = 0;
+        while (rs.next()) {
+            table.setValueAt(rs.getString("paydate"), row1, 0);
+            table.setValueAt(rs.getString("sid"), row1, 1);
+            table.setValueAt(rs.getString("sname"), row1, 2);
+            table.setValueAt(rs.getDouble("gongzi"), row1, 3);
+            table.setValueAt(rs.getDouble("jintie"), row1, 4);
+            row1++;
+        }
 
 
 
