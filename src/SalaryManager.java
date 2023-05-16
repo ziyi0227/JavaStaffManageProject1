@@ -5,18 +5,29 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class SalaryManager {
-    public static void main(String[] args) throws Exception {
-        LoginFrame lf = new LoginFrame();
+    public static Connection conn;
 
-        /*Class.forName("com.mysql.cj.jdbc.Driver");
+    public static void main(String[] args) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://123.60.142.8:3306/hov";
         String username = "hov";
         String password = "NX6f8baShtXnFEKj";
-        Connection conn = DriverManager.getConnection(url, username, password);
-*/
-        lf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        conn = DriverManager.getConnection(url, username, password);
 
-        //conn.close();
+        LoginFrame lf = new LoginFrame();
+
+        lf.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        lf.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                System.exit(0);
+            }
+        });
     }
 }
 

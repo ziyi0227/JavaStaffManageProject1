@@ -21,12 +21,12 @@ class MainFrame extends JFrame implements ActionListener {
 
     public MainFrame(String username) throws Exception {
         super(username + "欢迎使用企业员工工资管理系统!");
-        //连接数据库
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://123.60.142.8:3306/hov";
-        String sqlUsername = "hov";
-        String password = "NX6f8baShtXnFEKj";
-        Connection conn = DriverManager.getConnection(url,sqlUsername,password);
+//        //连接数据库
+//        Class.forName("com.mysql.cj.jdbc.Driver");
+//        String url = "jdbc:mysql://123.60.142.8:3306/hov";
+//        String sqlUsername = "hov";
+//        String password = "NX6f8baShtXnFEKj";
+//        Connection conn = DriverManager.getConnection(url,sqlUsername,password);
 
         Container c = this.getContentPane();
 
@@ -94,9 +94,9 @@ class MainFrame extends JFrame implements ActionListener {
         c.add(p_detail, BorderLayout.SOUTH);
 
 
-        //添加代码，将所有员工工资信息显示在界面表格中
-        Statement stmt = conn.createStatement();
-        ViewStaff viewStaff = new ViewStaff(username,stmt);
+//        //添加代码，将所有员工工资信息显示在界面表格中
+//        Statement stmt = conn.createStatement();
+//        ViewStaff viewStaff = new ViewStaff(username,stmt);
 
 
 
