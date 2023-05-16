@@ -2,10 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 //主界面
 class MainFrame extends JFrame implements ActionListener {
@@ -125,15 +122,34 @@ class MainFrame extends JFrame implements ActionListener {
             ModifyPwdFrame mf = new ModifyPwdFrame();
         } else if (temp == mI[1]) {
             //添加退出系统的代码
-
+            System.exit(0);
 
         } else if (temp == m_FMEdit) {
             SalaryEditFrame bef = new SalaryEditFrame();
         } else if (temp == b_byempID)  //根据员工工号查询
         {
-            //添加代码
-
-
+            String empID = t_empid.getText().trim();
+            if (empID.equals("")){
+                JOptionPane.showMessageDialog(this,"请输入员工工号",
+                        "提示",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            String sql = "SELECT * FROM salary WHERE sid = '" + empID + "'";
+            try {
+                Statement stmt = SalaryManager.conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                int row = 0;
+                while (rs.next()){
+                    table.setValueAt(rs.getString("paydate"), row, 0);
+                    table.setValueAt(rs.getString("sid"), row, 1);
+                    table.setValueAt(rs.getString("sname"), row, 2);
+                    table.setValueAt(rs.getDouble("gongzi"), row, 3);
+                    table.setValueAt(rs.getDouble("jintie"), row, 4);
+                    row++;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } else if (temp == b_all)  //查询所有员工工资
         {
             //添加代码
