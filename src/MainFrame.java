@@ -74,6 +74,12 @@ class MainFrame extends JFrame implements ActionListener {
         c.add(p_condition, BorderLayout.CENTER);
 
         //添加3个按钮的监听事件
+        t_empid.addActionListener(this);
+        t_fromdate.addActionListener(this);
+        t_todate.addActionListener(this);
+        b_byempID.addActionListener(this);
+        b_all.addActionListener(this);
+        b_bydate.addActionListener(this);
 
         p_detail = new JPanel();
         p_detail.setBorder(BorderFactory.createCompoundBorder(
@@ -134,6 +140,11 @@ class MainFrame extends JFrame implements ActionListener {
                         "提示",JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            for(int i = 0; i < table.getRowCount(); i++){
+                for(int j = 0; j < table.getColumnCount(); j++){
+                    table.setValueAt("", i, j);
+                }
+            }
             String sql = "SELECT * FROM salary WHERE sid = '" + empID + "'";
             try {
                 Statement stmt = SalaryManager.conn.createStatement();
@@ -178,6 +189,11 @@ class MainFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this,"请输入查询时间",
                         "提示",JOptionPane.INFORMATION_MESSAGE);
                 return;
+            }
+            for(int i = 0; i < table.getRowCount(); i++){
+                for(int j = 0; j < table.getColumnCount(); j++){
+                    table.setValueAt("", i, j);
+                }
             }
             String sql = "SELECT * FROM salary WHERE paydate BETWEEN '" + date1 +
                     "'and'" +date2 + "'";
