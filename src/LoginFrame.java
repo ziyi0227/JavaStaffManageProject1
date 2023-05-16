@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 //登录界面
@@ -118,8 +121,27 @@ class LoginFrame extends JFrame implements ActionListener {
             new SignupFrame();
         } else if (b_login == source) {
             //添加代码，验证身份成功后显示主界面
+            String username = t_user.getText().trim();
+            String password = new String(t_pass.getPassword());
             try {
-                new MainFrame(t_user.getText().trim());
+                // 使用 JDBC 验证用户身份
+                String sql = "SELECT * FROM loginInfo WHERE uid=? AND upw=?";
+                PreparedStatement stmt = SalaryManager.conn.prepareStatement(sql);
+                stmt.setString(1, username);
+                stmt.setString(2, password);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    // 身份验证成功，关闭登录窗口，打开主窗口
+                    dispose(); // 关闭登录窗口
+                    new MainFrame(username); // 打开主窗口
+                } else {
+                    // 身份验证失败，弹出提示
+                    JOptionPane.showMessageDialog(this, "用户名或密码错误，请重试！", "身份验证失败", JOptionPane.ERROR_MESSAGE);
+                    t_pass.setText(""); // 清空密码框
+                    t_pass.requestFocus(); // 让密码框获取焦点
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
