@@ -3,6 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.charset.StandardCharsets;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Objects;
 
 public class SignupFrame extends JFrame implements ActionListener{
@@ -78,11 +82,56 @@ public class SignupFrame extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == b_register){
-            //判断账号是否被注册（false待更换）
-            if (false){
-                //待添加代码
-            } else {
-                //待添加代码
+            String newUser = t_newUser.getText().trim();
+            String newPassword = new String(t_newPassword.getPassword());
+            String checkNewPAssword = new String(t_checkNewPassword.getPassword());
+            String email = t_email.getText().trim();
+
+            // 验证用户名与密码格式
+            String regex = "^[a-zA-Z][a-zA-Z0-9_]{4,15}$";
+            if (!newUser.matches(regex)) {
+                JOptionPane.showMessageDialog(this, "用户名不符合要求，请重新输入（5-16个字符，不能以数字和下划线开头）", "提示", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            regex = "^[a-zA-Z]\\w{5,15}$";
+            if (!newPassword.matches(regex)) {
+                JOptionPane.showMessageDialog(this, "密码不符合要求，请重新输入（6-16个字符，不能以数字和下划线开头）", "提示", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // 判断两次密码是否一致
+            if (!newPassword.equals(checkNewPAssword)){
+                JOptionPane.showMessageDialog(this,"两次输入的密码不一致，请重新输入","提示",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // 连接数据库，查询用户名是否已经存在
+            String sql = "SELECT * FROM loginInfo WHERE uid = ?";
+            try {
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sql);
+                pstmt.setString(1,newUser);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "该用户名已经被注册", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "注册失败，请稍后重试", "提示", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            sql = "INSERT INTO loginInfo(uid,upw,email) VALUES (?,?,?)";
+            try {
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sql);
+                pstmt.setString(1, newUser);
+                pstmt.setString(2, newPassword);
+                pstmt.setString(3, email);
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(this, "注册成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "注册失败，请稍后重试", "提示", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
