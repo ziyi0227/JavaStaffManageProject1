@@ -152,13 +152,50 @@ class MainFrame extends JFrame implements ActionListener {
             }
         } else if (temp == b_all)  //查询所有员工工资
         {
-            //添加代码
-
-
+            String sql = "SELECT * FROM salary";
+            Statement stmt = null;
+            try {
+                stmt = SalaryManager.conn.createStatement();
+                ResultSet rs = null;
+                rs = stmt.executeQuery(sql);
+                int row1 = 0;
+                while (rs.next()) {
+                    table.setValueAt(rs.getString("paydate"), row1, 0);
+                    table.setValueAt(rs.getString("sid"), row1, 1);
+                    table.setValueAt(rs.getString("sname"), row1, 2);
+                    table.setValueAt(rs.getDouble("gongzi"), row1, 3);
+                    table.setValueAt(rs.getDouble("jintie"), row1, 4);
+                    row1++;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } else if (temp == b_bydate)     //根据起始时间来查询
         {
-            //添加代码
-
+            String date1 = t_fromdate.getText().trim();
+            String date2 = t_todate.getText().trim();
+            if (date1.equals("") || date2.equals("")){
+                JOptionPane.showMessageDialog(this,"请输入查询时间",
+                        "提示",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            String sql = "SELECT * FROM salary WHERE paydate BETWEEN '" + date1 +
+                    "'and'" +date2 + "'";
+            try {
+                Statement stmt = SalaryManager.conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                int row = 0;
+                while (rs.next()){
+                    table.setValueAt(rs.getString("paydate"), row, 0);
+                    table.setValueAt(rs.getString("sid"), row, 1);
+                    table.setValueAt(rs.getString("sname"), row, 2);
+                    table.setValueAt(rs.getDouble("gongzi"), row, 3);
+                    table.setValueAt(rs.getDouble("jintie"), row, 4);
+                    row++;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
