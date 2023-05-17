@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +28,15 @@ public class SignupFrame extends JFrame implements ActionListener{
         InitImage();
 
         b_register.addActionListener(this);
+
+        // 添加窗口关闭事件监听器
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                LoginFrame.showLoginFrame(); // 打开登录页面
+            }
+        });
     }
 
     private void InitFrame() {
@@ -78,6 +89,33 @@ public class SignupFrame extends JFrame implements ActionListener{
         this.setVisible(true);
     }
 
+    private void showSuccessDialog() {
+        disableComponents();
+        JOptionPane.showMessageDialog(this, "\u6ce8\u518c\u6210\u529f\uff01", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
+        dispose(); // 关闭注册页面
+        enableComponents();
+        LoginFrame loginFrame = new LoginFrame();
+        loginFrame.setVisible(true);
+    }
+
+    private void disableComponents() {
+        // 禁用注册界面的所有组件
+        t_newUser.setEnabled(false);
+        t_newPassword.setEnabled(false);
+        t_checkNewPassword.setEnabled(false);
+        t_email.setEnabled(false);
+        b_register.setEnabled(false);
+    }
+
+    private void enableComponents() {
+        // 启用注册界面的所有组件
+        t_newUser.setEnabled(true);
+        t_newPassword.setEnabled(true);
+        t_checkNewPassword.setEnabled(true);
+        t_email.setEnabled(true);
+        b_register.setEnabled(true);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -128,7 +166,7 @@ public class SignupFrame extends JFrame implements ActionListener{
                 pstmt.setString(2, newPassword);
                 pstmt.setString(3, email);
                 pstmt.executeUpdate();
-                JOptionPane.showMessageDialog(this, "\u6ce8\u518c\u6210\u529f\uff01", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
+                showSuccessDialog(); // 显示注册成功提示框
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "\u6ce8\u518c\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);

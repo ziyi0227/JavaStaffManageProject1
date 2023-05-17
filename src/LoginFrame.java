@@ -122,6 +122,7 @@ class LoginFrame extends JFrame implements ActionListener {
         if (b_signup == source) {
             //注册界面
             new SignupFrame();
+            dispose();
         } else if (b_login == source) {
             //添加代码，验证身份成功后显示主界面
             username = t_user.getText().trim();
