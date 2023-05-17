@@ -19,7 +19,7 @@ public class SignupFrame extends JFrame implements ActionListener{
     JLabel l_email = new JLabel("\u90ae\u7bb1\uff1a");//再次输入密码
     JTextField t_email = new JTextField();
     JButton b_register = new JButton("\u786e\u8ba4\u6ce8\u518c");//确认注册
-    JDialog d_successRegister = new JDialog(this,"员工工资管理系统");
+    JDialog d_successRegister = new JDialog(this,"\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf");
     public SignupFrame(){
         super("\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf \u6ce8\u518c");
         InitFrame();
@@ -90,19 +90,19 @@ public class SignupFrame extends JFrame implements ActionListener{
             // 验证用户名与密码格式
             String regex = "^[a-zA-Z][a-zA-Z0-9_]{4,15}$";
             if (!newUser.matches(regex)) {
-                JOptionPane.showMessageDialog(this, "用户名不符合要求，请重新输入（5-16个字符，不能以数字和下划线开头）", "提示", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u7528\u6237\u540d\u4e0d\u7b26\u5408\u8981\u6c42\uff0c\u8bf7\u91cd\u65b0\u8f93\u5165\uff085-16\u4e2a\u5b57\u7b26\uff0c\u4e0d\u80fd\u4ee5\u6570\u5b57\u548c\u4e0b\u5212\u7ebf\u5f00\u5934\uff09", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
 
             regex = "^[a-zA-Z]\\w{5,15}$";
             if (!newPassword.matches(regex)) {
-                JOptionPane.showMessageDialog(this, "密码不符合要求，请重新输入（6-16个字符，不能以数字和下划线开头）", "提示", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u5bc6\u7801\u4e0d\u7b26\u5408\u8981\u6c42\uff0c\u8bf7\u91cd\u65b0\u8f93\u5165\uff086-16\u4e2a\u5b57\u7b26\uff0c\u4e0d\u80fd\u4ee5\u6570\u5b57\u548c\u4e0b\u5212\u7ebf\u5f00\u5934\uff09", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
 
             // 判断两次密码是否一致
             if (!newPassword.equals(checkNewPAssword)){
-                JOptionPane.showMessageDialog(this,"两次输入的密码不一致，请重新输入","提示",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this,"\u4e24\u6b21\u8f93\u5165\u7684\u5bc6\u7801\u4e0d\u4e00\u81f4\uff0c\u8bf7\u91cd\u65b0\u8f93\u5165","\u63d0\u793a",JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
 
@@ -113,12 +113,12 @@ public class SignupFrame extends JFrame implements ActionListener{
                 pstmt.setString(1,newUser);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next() && rs.getInt(1) > 0) {
-                    JOptionPane.showMessageDialog(this, "该用户名已经被注册", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "\u8be5\u7528\u6237\u540d\u5df2\u7ecf\u88ab\u6ce8\u518c", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "注册失败，请稍后重试", "提示", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u6ce8\u518c\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             sql = "INSERT INTO loginInfo(uid,upw,email) VALUES (?,?,?)";
@@ -128,10 +128,10 @@ public class SignupFrame extends JFrame implements ActionListener{
                 pstmt.setString(2, newPassword);
                 pstmt.setString(3, email);
                 pstmt.executeUpdate();
-                JOptionPane.showMessageDialog(this, "注册成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u6ce8\u518c\u6210\u529f\uff01", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "注册失败，请稍后重试", "提示", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u6ce8\u518c\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }

@@ -9,17 +9,17 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
     private JPasswordField t_Pwd, t_PwdAgain;
     private JButton b_ok, b_cancel;
     public RecoverPwdFrame (){
-        super("找回密码");
-        l_user = new JLabel("用户名：");
-        l_email = new JLabel("邮箱：");
-        l_Pwd = new JLabel("新密码：");
-        l_PwdAgain = new JLabel("确认新密码：");
+        super("\u627e\u56de\u5bc6\u7801");
+        l_user = new JLabel("\u7528\u6237\u540d\uff1a");
+        l_email = new JLabel("\u90ae\u7bb1\uff1a");
+        l_Pwd = new JLabel("\u65b0\u5bc6\u7801\uff1a");
+        l_PwdAgain = new JLabel("\u786e\u8ba4\u65b0\u5bc6\u7801\uff1a");
         t_user = new JTextField(15);
         t_email = new JTextField(15);
         t_Pwd = new JPasswordField(15);
         t_PwdAgain = new JPasswordField(15);
-        b_ok = new JButton("确定");
-        b_cancel = new JButton("取消");
+        b_ok = new JButton("\u786e\u5b9a");
+        b_cancel = new JButton("\u53d6\u6d88");
 
         Container c = this.getContentPane();
         c.setLayout(new FlowLayout());
