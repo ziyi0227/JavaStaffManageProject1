@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,6 +95,24 @@ class SalaryEditFrame extends JFrame implements ActionListener {
         t_jintie.addActionListener(this);
         t_empName.addActionListener(this);
 
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = table.getSelectedRow();
+                if (row >= 0) {
+                    String date = (String) table.getValueAt(row, 0);
+                    String empID = (String) table.getValueAt(row, 1);
+                    String empName = (String) table.getValueAt(row, 2);
+                    double gongzi = (double) table.getValueAt(row, 3);
+                    double jintie = (double) table.getValueAt(row, 4);
+                    t_date.setText(date);
+                    t_empID.setText(empID);
+                    t_empName.setText(empName);
+                    t_gongzi.setText(String.valueOf(gongzi));
+                    t_jintie.setText(String.valueOf(jintie));
+                }
+            }
+        });
+
         this.setResizable(false);
         this.setSize(800, 300);
         Dimension screen = this.getToolkit().getScreenSize();
@@ -178,17 +198,100 @@ class SalaryEditFrame extends JFrame implements ActionListener {
 
         } else if (b_update == e.getSource())        //修改某条工资记录
         {
-            //添加代码
+            try {
+                String date = t_date.getText();
+                String empID = t_empID.getText();
+                double gongzi = Double.parseDouble(t_gongzi.getText());
+                double jintie = Double.parseDouble(t_jintie.getText());
+                String sql = "UPDATE salary SET gongzi=?, jintie=? WHERE paydate=? AND sid=?";
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sql);
+                pstmt.setDouble(1, gongzi);
+                pstmt.setDouble(2, jintie);
+                pstmt.setString(3, date);
+                pstmt.setString(4, empID);
+                int result = pstmt.executeUpdate();
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(null, "修改成功！");
+                    // 修改成功后清空输入框
+                    t_date.setText("");
+                    t_empID.setText("");
+                    t_empName.setText("");
+                    t_gongzi.setText("");
+                    t_jintie.setText("");
+                    // 刷新表格
+                    b_select.doClick();
+                } else {
+                    JOptionPane.showMessageDialog(null, "修改失败！");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "基本工资和津贴必须是数字！");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
 
 
         } else if (b_delete == e.getSource())        //删除某条工资记录
         {
-            //添加代码
+            try {
+                String date = t_date.getText();
+                String empID = t_empID.getText();
+                String sql = "DELETE FROM salary WHERE paydate=? AND sid=?";
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sql);
+                pstmt.setString(1, date);
+                pstmt.setString(2, empID);
+                int result = pstmt.executeUpdate();
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(null, "删除成功！");
+                    // 删除成功后清空输入框
+                    t_date.setText("");
+                    t_empID.setText("");
+                    t_empName.setText("");
+                    t_gongzi.setText("");
+                    t_jintie.setText("");
+                    // 刷新表格
+                    b_select.doClick();
+                } else {
+                    JOptionPane.showMessageDialog(null, "删除失败！");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
 
 
         } else if (b_new == e.getSource())            //添加新的工资记录
         {
-            //添加代码
+            try {
+                String date = t_date.getText();
+                String empID = t_empID.getText();
+                String empName = t_empName.getText();
+                double gongzi = Double.parseDouble(t_gongzi.getText());
+                double jintie = Double.parseDouble(t_jintie.getText());
+                String sql = "INSERT INTO salary(paydate, sid, sname, gongzi, jintie) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sql);
+                pstmt.setString(1, date);
+                pstmt.setString(2, empID);
+                pstmt.setString(3, empName);
+                pstmt.setDouble(4, gongzi);
+                pstmt.setDouble(5, jintie);
+                int result = pstmt.executeUpdate();
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(null, "添加成功！");
+                    // 添加成功后清空输入框
+                    t_date.setText("");
+                    t_empID.setText("");
+                    t_empName.setText("");
+                    t_gongzi.setText("");
+                    t_jintie.setText("");
+                    // 刷新表格
+                    b_select.doClick();
+                } else {
+                    JOptionPane.showMessageDialog(null, "添加失败！");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "基本工资和津贴必须是数字！");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
 
         } else if (b_clear == e.getSource())            //清空输入框
         {
