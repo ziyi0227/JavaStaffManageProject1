@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 //工资编辑界面
 class SalaryEditFrame extends JFrame implements ActionListener {
@@ -81,6 +87,11 @@ class SalaryEditFrame extends JFrame implements ActionListener {
         b_clear.addActionListener(this);
 
         //添加代码，为table添加鼠标点击事件监听addMouseListener
+        t_date.addActionListener(this);
+        t_empID.addActionListener(this);
+        t_gongzi.addActionListener(this);
+        t_jintie.addActionListener(this);
+        t_empName.addActionListener(this);
 
         this.setResizable(false);
         this.setSize(800, 300);
@@ -97,7 +108,71 @@ class SalaryEditFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (b_select == e.getSource())            //查询所有的工资信息
         {
-            //添加代码
+            for(int i = 0; i < table.getRowCount(); i++){
+                for(int j = 0; j < table.getColumnCount(); j++){
+                    table.setValueAt("", i, j);
+                }
+            }
+            try {
+                StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM salary WHERE 1=1");
+                List<Object> params = new ArrayList<>();
+                if (!t_date.getText().isEmpty()) {
+                    sqlBuilder.append(" AND paydate=?");
+                    params.add(t_date.getText());
+                }
+                if (!t_empID.getText().isEmpty()) {
+                    sqlBuilder.append(" AND sid=?");
+                    params.add(t_empID.getText());
+                }
+                if (!t_empName.getText().isEmpty()) {
+                    sqlBuilder.append(" AND sname=?");
+                    params.add(t_empName.getText());
+                }
+                if (!t_gongzi.getText().isEmpty()) {
+                    try {
+                        Double gongzi = Double.parseDouble(t_gongzi.getText());
+                        sqlBuilder.append(" AND gongzi=?");
+                        params.add(gongzi);
+                    } catch (NumberFormatException ex) {
+                        // 如果输入的基本工资不是合法的数字，则不添加该条件
+                    }
+                }
+                if (!t_jintie.getText().isEmpty()) {
+                    try {
+                        Double jintie = Double.parseDouble(t_jintie.getText());
+                        sqlBuilder.append(" AND jintie=?");
+                        params.add(jintie);
+                    } catch (NumberFormatException ex) {
+                        // 如果输入的津贴不是合法的数字，则不添加该条件
+                    }
+                }
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sqlBuilder.toString());
+                for (int i = 0; i < params.size(); i++){
+                    Object param = params.get(i);
+                    if (param instanceof String){
+                        pstmt.setString(i+1,(String) param);
+                    } else if (param instanceof Double) {
+                        pstmt.setDouble(i+1,(Double) param);
+                    }
+                }
+                ResultSet rs = pstmt.executeQuery();
+                int i = 0;
+                while (rs.next()){
+                    String date = rs.getString("paydate");
+                    String empID = rs.getString("sid");
+                    String empName = rs.getString("sname");
+                    double gongzi = rs.getDouble("gongzi");
+                    double jintie = rs.getDouble("jintie");
+                    table.setValueAt(date, i, 0);
+                    table.setValueAt(empID, i, 1);
+                    table.setValueAt(empName, i, 2);
+                    table.setValueAt(gongzi, i, 3);
+                    table.setValueAt(jintie, i, 4);
+                    i++;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
 
 
         } else if (b_update == e.getSource())        //修改某条工资记录
