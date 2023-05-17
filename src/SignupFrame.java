@@ -1,6 +1,6 @@
 import com.mysql.cj.Session;
 
-import javax.mail.internet.MimeMessage;
+// import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
