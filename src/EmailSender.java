@@ -1,4 +1,3 @@
-/*
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -6,69 +5,67 @@ import java.util.Properties;
 import java.util.Random;
 
 public class EmailSender {
-    private final String host;
-    private final String username;
-    private final String password;
-    private final String fromAddress;
+    private static String title = "\u5458\u5DE5\u5DE5\u8D44\u7BA1\u7406\u7CFB\u7EDF\u6CE8\u518C";//员工工资管理系统注册
+    private static final String USER = "hovchen@qq.com"; // 发件人
+    private static final String PASSWORD = "sxhrpofogfrjbhgc"; // 授权码
 
-    public EmailSender(String host, String username, String password, String fromAddress) {
-        this.host = host;
-        this.username = username;
-        this.password = password;
-        this.fromAddress = fromAddress;
-    }
-
-    public void sendVerificationCode(String code, String toAddress) {
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "25");
-
-        // 添加SSL配置
-        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        properties.put("mail.smtp.socketFactory.port", "465");
-        properties.put("mail.smtp.socketFactory.fallback", "false");
-
-        Session session = Session.getInstance(properties, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromAddress));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
-            message.setSubject("验证码");
-            message.setText("您的验证码是：" + code);
-
-            Transport.send(message);
-
-            System.out.println("验证码已发送到邮箱：" + toAddress);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String generateRandomCode() {
-        // 生成随机四位验证码
+    /**
+     * @param to 收件人邮箱
+     */
+    /* 发送验证信息的邮件 */
+    public static int sendMail(String to){
         Random random = new Random();
         int code = random.nextInt(9000) + 1000;
-        return String.valueOf(code);
+        String unicode = "\\u" + String.format("%04x", code);
+        try {
+            final Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            //发件邮箱host
+            props.put("mail.smtp.host", "smtp.qq.com");
+            props.put("mail.smtp.port", "587");// 端口号
+            props.put("mail.smtp.socketFactory.port", "465");
+            props.put("mail.smtp.ssl.enable", "false");
+            //发件人的账号
+            props.put("mail.user", USER);
+            //发件人的密码
+            props.put("mail.password", PASSWORD);
+
+            // 构建授权信息，用于进行SMTP进行身份验证
+            Authenticator authenticator = new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    // 用户名、密码
+                    String userName = props.getProperty("mail.user");
+                    String password = props.getProperty("mail.password");
+                    return new PasswordAuthentication(userName, password);
+                }
+            };
+            // 使用环境属性和授权信息，创建邮件会话
+            Session mailSession = Session.getInstance(props, authenticator);
+            // 创建邮件消息
+            MimeMessage message = new MimeMessage(mailSession);
+            // 设置发件人
+            String username = props.getProperty("mail.user");
+            InternetAddress form = new InternetAddress(username);
+            message.setFrom(form);
+            // 设置收件人
+            InternetAddress toAddress = new InternetAddress(to);
+            message.setRecipient(Message.RecipientType.TO, toAddress);
+            // 设置邮件标题
+            message.setSubject(title);
+            // 设置邮件的内容体
+            String text = "\u6B22\u8FCE\u6CE8\u518C\u5458\u5DE5\u5DE5\u8D44\u7BA1\u7406\u7CFB\u7EDF\uFF0C\u60A8\u7684\u9A8C\u8BC1\u7801\u4E3A\uFF1A" + code + "\uFF0C\u9A8C\u8BC1\u7801\u6709\u6548\u671F\u4E3A\u4E94\u5206\u949F\uFF01";
+            message.setContent(text, "text/html;charset=UTF-8");
+            // 发送邮件
+            Transport.send(message);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return code;
     }
-
-    public static void main(String[] args) {
-        String host = "183.47.101.192";
-        String username = "510478741";
-        String password = "sxhrpofogfrjbhgc";
-        String fromAddress = "51047841@qq.com";
-        String toAddress = "51047841@qq.com";
-
-        EmailSender emailSender = new EmailSender(host, username, password, fromAddress);
-
-        String verificationCode = generateRandomCode();
-        emailSender.sendVerificationCode(verificationCode, toAddress);
-    }
+    // 做测试用
+    /*public static void main(String[] args) throws Exception {
+        EmailSender.sendMail("1206881089@qq.com");//填写接收邮箱
+        System.out.println("\u53D1\u9001\u6210\u529F");//发送成功
+    }*/
 }
-*/
