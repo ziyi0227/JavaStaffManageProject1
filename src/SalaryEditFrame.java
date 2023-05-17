@@ -192,8 +192,11 @@ class SalaryEditFrame extends JFrame implements ActionListener {
 
         } else if (b_clear == e.getSource())            //清空输入框
         {
-            //添加代码
-
+            t_date.setText("");
+            t_empID.setText("");
+            t_empName.setText("");
+            t_gongzi.setText("");
+            t_jintie.setText("");
         }
     }
 }
