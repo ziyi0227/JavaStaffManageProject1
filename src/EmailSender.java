@@ -16,7 +16,6 @@ public class EmailSender {
     public static int sendMail(String to){
         Random random = new Random();
         int code = random.nextInt(9000) + 1000;
-        String unicode = "\\u" + String.format("%04x", code);
         try {
             final Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -64,8 +63,8 @@ public class EmailSender {
         return code;
     }
     // 做测试用
-    /*public static void main(String[] args) throws Exception {
-        EmailSender.sendMail("1206881089@qq.com");//填写接收邮箱
+    public static void main(String[] args) throws Exception {
+        EmailSender.sendMail("510478741@qq.com");//填写接收邮箱
         System.out.println("\u53D1\u9001\u6210\u529F");//发送成功
-    }*/
+    }
 }

@@ -35,6 +35,8 @@ public class SignupFrame extends JFrame implements ActionListener{
     private Timer timer; // 计时器
     private int countdown; // 倒计时
 
+    private int correctCode;// 验证码
+
     public SignupFrame(){
         super("\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf \u6ce8\u518c");
         InitFrame();
@@ -180,6 +182,14 @@ public class SignupFrame extends JFrame implements ActionListener{
                 return;
             }
 
+            //判断验证码是否正确
+            String code = t_verificationCode.getText().trim();
+            if (!judgeVerificationCode(code)) {
+                JOptionPane.showMessageDialog(this, "\u9a8c\u8bc1\u7801\u9519\u8bef", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+
             // 连接数据库，查询用户名是否已经存在
             String sql = "SELECT * FROM loginInfo WHERE uid = ?";
             try {
@@ -210,33 +220,22 @@ public class SignupFrame extends JFrame implements ActionListener{
         }
     }
     private void sendVerificationCode() {
-        // 生成随机验证码
-        String verificationCode = generateRandomCode();
-
-        // 发送验证码到用户提供的邮箱（这里只模拟发送操作）
-        sendCodeToEmail(verificationCode, t_email.getText().trim());
+        String email = t_email.getText().trim();
+        correctCode = EmailSender.sendMail(email);
 
         // 重置计时器和倒计时
         countdown = 60;
         timer.start();
     }
 
-    private String generateRandomCode() {
-        // 生成随机四位验证码
-        Random random = new Random();
-        int code = random.nextInt(9000) + 1000;
-        return String.valueOf(code);
-    }
-
-    private void sendCodeToEmail(String code, String email) {
-        // 模拟发送验证码到邮箱的操作，可以使用JavaMail等库来实现实际的发送功能
-        System.out.println("发送验证码 " + code + " 到邮箱 " + email);
-    }
-
     private void resetVerificationCode() {
         t_verificationCode.setText("");
     }
 
+    public boolean judgeVerificationCode(String code){
+        String correctCode = "" + this.correctCode;
+        return correctCode.equals(code);
+    }
 }
 
 
