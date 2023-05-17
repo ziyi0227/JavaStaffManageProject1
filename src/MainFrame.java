@@ -18,7 +18,7 @@ class MainFrame extends JFrame implements ActionListener {
     private JTable table;
 
     public MainFrame(String username) throws Exception {
-        super(username + "欢迎使用企业员工工资管理系统!");
+        super(username + " 欢迎使用企业员工工资管理系统!");
 //        //连接数据库
 //        Class.forName("com.mysql.cj.jdbc.Driver");
 //        String url = "jdbc:mysql://123.60.142.8:3306/hov";

@@ -1,15 +1,22 @@
+import com.mysql.cj.Session;
+
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Properties;
+import java.util.Random;
 
 public class SignupFrame extends JFrame implements ActionListener{
     JLabel l_newUser = new JLabel("\u7528\u6237\u540d\uff1a");//用户名
@@ -22,12 +29,30 @@ public class SignupFrame extends JFrame implements ActionListener{
     JTextField t_email = new JTextField();
     JButton b_register = new JButton("\u786e\u8ba4\u6ce8\u518c");//确认注册
     JDialog d_successRegister = new JDialog(this,"\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf");
+    JLabel l_verificationCode = new JLabel("\u9a8c\u8bc1\u7801\uff1a");//验证码
+    JTextField t_verificationCode = new JTextField(); // 验证码输入框
+    JButton b_sendCode = new JButton("\u53d1\u9001"); // 发送验证码按钮
+    private Timer timer; // 计时器
+    private int countdown; // 倒计时
+
     public SignupFrame(){
         super("\u5458\u5de5\u5de5\u8d44\u7ba1\u7406\u7cfb\u7edf \u6ce8\u518c");
         InitFrame();
         InitImage();
 
         b_register.addActionListener(this);
+        b_sendCode.addActionListener(this);
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                countdown--;
+                if (countdown == 0) {
+                    resetVerificationCode();
+                    timer.stop();
+                }
+            }
+        });
 
         // 添加窗口关闭事件监听器
         addWindowListener(new WindowAdapter() {
@@ -50,16 +75,21 @@ public class SignupFrame extends JFrame implements ActionListener{
         Container contentPane = this.getContentPane();
         contentPane.setLayout(null);
 
-        l_newUser.setBounds(380, 80, 80, 30);
-        t_newUser.setBounds(470, 80, 180, 30);
-        l_newPassword.setBounds(380, 130, 80, 30);
-        t_newPassword.setBounds(470, 130, 180, 30);
-        l_checkNewPassword.setBounds(380, 180, 120, 30);
-        t_checkNewPassword.setBounds(470, 180, 180, 30);
-        l_email.setBounds(380, 230, 120, 30);
-        t_email.setBounds(470, 230, 180, 30);
-        b_register.setBounds(480, 300, 100, 30);
+        //设置组件大小和位置
+        l_newUser.setBounds(380, 60, 80, 30);
+        t_newUser.setBounds(470, 60, 180, 30);
+        l_newPassword.setBounds(380, 110, 80, 30);
+        t_newPassword.setBounds(470, 110, 180, 30);
+        l_checkNewPassword.setBounds(380, 160, 120, 30);
+        t_checkNewPassword.setBounds(470, 160, 180, 30);
+        l_email.setBounds(380, 210, 120, 30);
+        t_email.setBounds(470, 210, 180, 30);
+        l_verificationCode.setBounds(380,260,80,30);
+        t_verificationCode.setBounds(470, 260, 110, 30);
+        b_sendCode.setBounds(590, 260, 60, 30);
+        b_register.setBounds(490, 320, 100, 30);
 
+        //添加组件
         contentPane.add(l_newUser);
         contentPane.add(l_newPassword);
         contentPane.add(l_checkNewPassword);
@@ -69,6 +99,9 @@ public class SignupFrame extends JFrame implements ActionListener{
         contentPane.add(l_email);
         contentPane.add(t_email);
         contentPane.add(b_register);
+        contentPane.add(l_verificationCode);
+        contentPane.add(t_verificationCode);
+        contentPane.add(b_sendCode);
 
         this.setVisible(true);
     }
@@ -119,6 +152,9 @@ public class SignupFrame extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+        if (e.getSource() == b_sendCode) {
+            sendVerificationCode();
+        }
         if (source == b_register){
             String newUser = t_newUser.getText().trim();
             String newPassword = new String(t_newPassword.getPassword());
@@ -173,4 +209,34 @@ public class SignupFrame extends JFrame implements ActionListener{
             }
         }
     }
+    private void sendVerificationCode() {
+        // 生成随机验证码
+        String verificationCode = generateRandomCode();
+
+        // 发送验证码到用户提供的邮箱（这里只模拟发送操作）
+        sendCodeToEmail(verificationCode, t_email.getText().trim());
+
+        // 重置计时器和倒计时
+        countdown = 60;
+        timer.start();
+    }
+
+    private String generateRandomCode() {
+        // 生成随机四位验证码
+        Random random = new Random();
+        int code = random.nextInt(9000) + 1000;
+        return String.valueOf(code);
+    }
+
+    private void sendCodeToEmail(String code, String email) {
+        // 模拟发送验证码到邮箱的操作，可以使用JavaMail等库来实现实际的发送功能
+        System.out.println("发送验证码 " + code + " 到邮箱 " + email);
+    }
+
+    private void resetVerificationCode() {
+        t_verificationCode.setText("");
+    }
+
 }
+
+
