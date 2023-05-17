@@ -112,7 +112,7 @@ class MainFrame extends JFrame implements ActionListener {
             row1++;
         }
 
-
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setResizable(true);
         this.setSize(600, 620);
