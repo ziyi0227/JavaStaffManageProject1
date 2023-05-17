@@ -77,7 +77,7 @@ class ModifyPwdFrame extends JFrame implements ActionListener {
                 if (result > 0) {
                     JOptionPane.showMessageDialog(null, "密码修改成功，请重新登录！", "提示", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose(); //关闭修改密码窗口
-                    LoginFrame.showLoginFrame(); //重新显示登录窗口
+//                    LoginFrame.showLoginFrame(); //重新显示登录窗口
                 } else {
                     JOptionPane.showMessageDialog(null, "密码修改失败，请稍后再试！", "错误", JOptionPane.ERROR_MESSAGE);
                 }
