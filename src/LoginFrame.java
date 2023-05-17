@@ -18,7 +18,7 @@ class LoginFrame extends JFrame implements ActionListener {
     JButton b_signup = new JButton("注册");
     JButton b_login = new JButton("登录");
     JButton b_find = new JButton("找回密码");
-    JButton b_modify = new JButton("修改密码");
+    //JButton b_modify = new JButton("修改密码");
 
 
     public LoginFrame() {
@@ -33,7 +33,7 @@ class LoginFrame extends JFrame implements ActionListener {
         //为按钮添加监听事件
         b_signup.addActionListener(this);
         b_login.addActionListener(this);
-        b_modify.addActionListener(this);
+        //b_modify.addActionListener(this);
         b_find.addActionListener(this);
 
         this.setVisible(true);
@@ -81,7 +81,7 @@ class LoginFrame extends JFrame implements ActionListener {
         t_pass.setBounds(470, 170, 180, 30);
         b_signup.setBounds(410, 260, 80, 30);
         b_login.setBounds(540, 260, 80, 30);
-        b_modify.setBounds(500, 380, 90, 20);
+        //b_modify.setBounds(500, 380, 90, 20);
         b_find.setBounds(590, 380, 90, 20);
 
         contentPane.add(l_user);
@@ -91,7 +91,7 @@ class LoginFrame extends JFrame implements ActionListener {
         contentPane.add(b_signup);
         contentPane.add(b_login);
         contentPane.add(b_find);
-        contentPane.add(b_modify);
+        //contentPane.add(b_modify);
 
         // 设置窗体可见性
         this.setVisible(true);
@@ -145,10 +145,11 @@ class LoginFrame extends JFrame implements ActionListener {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else if (b_modify == source) {
-            new ModifyPwdFrame();
+//        } else if (b_modify == source) {
+//            new ModifyPwdFrame();
         } else if (b_find == source) {
             //找回密码界面
+            RecoverPwdFrame rpf = new RecoverPwdFrame();
         }
     }
 }
