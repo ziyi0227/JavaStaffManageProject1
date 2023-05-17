@@ -168,6 +168,7 @@ class SalaryEditFrame extends JFrame implements ActionListener {
                     table.setValueAt(empName, i, 2);
                     table.setValueAt(gongzi, i, 3);
                     table.setValueAt(jintie, i, 4);
+                    table.setValueAt(gongzi+jintie,i,5);
                     i++;
                 }
             } catch (SQLException ex) {
