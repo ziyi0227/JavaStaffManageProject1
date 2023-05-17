@@ -10,6 +10,9 @@ import java.util.Objects;
 //登录界面
 class LoginFrame extends JFrame implements ActionListener {
 
+    public static String password = "";
+    public static String username = "";
+
     // 创建并添加组件
     JLabel l_user = new JLabel("用户名：");
     JTextField t_user = new JTextField();
@@ -121,8 +124,8 @@ class LoginFrame extends JFrame implements ActionListener {
             new SignupFrame();
         } else if (b_login == source) {
             //添加代码，验证身份成功后显示主界面
-            String username = t_user.getText().trim();
-            String password = new String(t_pass.getPassword());
+            username = t_user.getText().trim();
+            password = new String(t_pass.getPassword());
             try {
                 // 使用 JDBC 验证用户身份
                 String sql = "SELECT * FROM loginInfo WHERE uid=? AND upw=?";
@@ -151,6 +154,12 @@ class LoginFrame extends JFrame implements ActionListener {
             //找回密码界面
             RecoverPwdFrame rpf = new RecoverPwdFrame();
         }
+    }
+
+    // 显示登录窗口
+    public static void showLoginFrame() {
+        LoginFrame loginFrame = new LoginFrame();
+        loginFrame.setVisible(true);
     }
 }
 

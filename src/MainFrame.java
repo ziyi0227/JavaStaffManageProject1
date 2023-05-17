@@ -121,7 +121,6 @@ class MainFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-
     public void actionPerformed(ActionEvent e) {
         Object temp = e.getSource();
         if (temp == mI[0]) {
@@ -214,4 +213,5 @@ class MainFrame extends JFrame implements ActionListener {
             }
         }
     }
+
 }

@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 
 //修改密码界面
 class ModifyPwdFrame extends JFrame implements ActionListener {
@@ -42,12 +43,48 @@ class ModifyPwdFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (b_cancel == e.getSource()) {
-            //添加代码
-
+            this.dispose();
         } else if (b_ok == e.getSource())        //修改密码
         {
-            //添加代码
+            String oldPwd = new String(t_oldPWD.getPassword());
+            String newPwd = new String(t_newPWD.getPassword());
+            String newPwdAgain = new String(t_newPWDAgain.getPassword());
 
+            //检查输入的旧密码是否正确
+            if (!oldPwd.equals(LoginFrame.password)) {
+                JOptionPane.showMessageDialog(null, "旧密码输入错误，请重新输入！", "错误", JOptionPane.ERROR_MESSAGE);
+                t_oldPWD.setText("");
+                t_oldPWD.requestFocus();
+                return;
+            }
+
+            //检查两次输入的新密码是否一致
+            if (!newPwd.equals(newPwdAgain)) {
+                JOptionPane.showMessageDialog(null, "两次输入的新密码不一致，请重新输入！", "错误", JOptionPane.ERROR_MESSAGE);
+                t_newPWD.setText("");
+                t_newPWDAgain.setText("");
+                t_newPWD.requestFocus();
+                return;
+            }
+
+            //更新用户密码
+            String sql = "UPDATE loginInfo SET upw=? WHERE uid=?";
+            try {
+                PreparedStatement pstmt = SalaryManager.conn.prepareStatement(sql);
+                pstmt.setString(1, newPwd);
+                pstmt.setString(2, LoginFrame.username);
+                int result = pstmt.executeUpdate();
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(null, "密码修改成功，请重新登录！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose(); //关闭修改密码窗口
+                    LoginFrame.showLoginFrame(); //重新显示登录窗口
+                } else {
+                    JOptionPane.showMessageDialog(null, "密码修改失败，请稍后再试！", "错误", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println("Error message: " + ex.getMessage());
+            }
         }
     }
 }
