@@ -13,7 +13,7 @@ public class EmailSender {
      * @param to 收件人邮箱
      */
     /* 发送验证信息的邮件 */
-    public static int sendMail(String to){
+   public static int sendMail(String to){
         Random random = new Random();
         int code = random.nextInt(9000) + 1000;
         try {

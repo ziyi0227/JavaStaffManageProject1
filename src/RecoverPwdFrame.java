@@ -15,9 +15,9 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
     private JButton b_ok, b_cancel;
     public RecoverPwdFrame (){
         super("\u627e\u56de\u5bc6\u7801");
-        l_user = new JLabel("\u7528\u6237\u540d\uff1a");
-        l_email = new JLabel("\u90ae\u7bb1\uff1a");
-        l_Pwd = new JLabel("\u65b0\u5bc6\u7801\uff1a");
+        l_user = new JLabel("\u7528\u6237\u540d\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
+        l_email = new JLabel("\u90ae\u7bb1\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
+        l_Pwd = new JLabel("\u65b0\u5bc6\u7801\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
         l_PwdAgain = new JLabel("\u786e\u8ba4\u65b0\u5bc6\u7801\uff1a");
         t_user = new JTextField(15);
         t_email = new JTextField(15);
@@ -27,7 +27,7 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         b_cancel = new JButton("\u53d6\u6d88");
 
         Container c = this.getContentPane();
-        c.setLayout(new FlowLayout());
+        c.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
 
         c.add(l_user);
         c.add(t_user);
@@ -53,6 +53,7 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (b_cancel == e.getSource()) {
+
             this.dispose();
         } else if (b_ok == e.getSource())        //修改密码
         {
