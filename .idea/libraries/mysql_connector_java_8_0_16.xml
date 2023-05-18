@@ -3,9 +3,19 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.16.jar!/" />
       <root url="file://C:/Program Files/Java/jdk-17" />
+      <root url="file://$PROJECT_DIR$/../../java" />
+      <root url="file://$PROJECT_DIR$/../../java" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../java/4.24作业/homework/src" />
+      <root url="file://$PROJECT_DIR$/../../java/4.24作业/homework/src/T1" />
+      <root url="file://$PROJECT_DIR$/../../java/4.24作业/homework/src/T2" />
+      <root url="file://$PROJECT_DIR$/../../java/judge1/src" />
+      <root url="file://$PROJECT_DIR$/../../java/work6 5.10/work6/src" />
+      <root url="file://$PROJECT_DIR$/../../java/work6 5.10/work7 5.17/src" />
+    </SOURCES>
     <jarDirectory url="file://C:/Program Files/Java/jdk-17" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../java" recursive="false" />
   </library>
 </component>
