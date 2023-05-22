@@ -41,9 +41,9 @@ class MainFrame extends JFrame implements ActionListener {
         m_bangzhu.add(helpMenuItem);
         helpMenuItem.addActionListener(e -> {
             JOptionPane.showMessageDialog(this,
-                    "Editer Version 1.0  TIME:2023/5/21\n" +
-                            "作者：郑景元 陈黄未 徐程\n" +
-                            "GitHub开源 ：   \n" +
+                    "                      Editer Version 1.0  TIME:2023/5/21\n "+
+                            "                              作者：郑景元 陈黄未 徐程\n" +
+                            "GitHub开源 ：https://github.com/ziyi0227/JavaStaffManageProject1   \n" +
                             "实现功能：\n" +
                             "1.注册登录\n" +
                             "2.找回密码\n" +
@@ -53,12 +53,9 @@ class MainFrame extends JFrame implements ActionListener {
                             "6.发送邮箱验证码\n" +
                             "功能使用介绍：\n" +
                             "本程序含系统管理与工资管理两部分\n" +
-                            "1.在工资管理中：使用者在工资编辑中可使用\n" +
-                            "录入、修改、删除、查询、清空等功能，方便\n" +
-                            "得将公司员工的基本信息（姓名、工号、工资\n" +
-                            "、津贴）以表格呈现,功能强大格式优美。\n" +
-                            "2.在系统管理中：使用者可使用密码重置与退\n" +
-                            "出系统功能，方便使用者操作\n" +
+                            "1.在工资管理中：使用者在工资编辑中可使用录入、修改、删除、查询、清空等功能，方便\n" +
+                            "得将公司员工的基本信息（姓名、工号、工资、津贴）以表格呈现,功能强大格式优美。\n" +
+                            "2.在系统管理中：使用者可使用密码重置与退出系统功能，方便使用者操作\n" +
                             "3.在主界面：使用者可根据提示信息查询\n"
                             , "帮助", JOptionPane.INFORMATION_MESSAGE);
         });
