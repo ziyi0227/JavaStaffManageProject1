@@ -9,6 +9,8 @@ class MainFrame extends JFrame implements ActionListener {
     private JMenuBar mb = new JMenuBar();
     private JMenu m_system = new JMenu("系统管理");
     private JMenu m_gongzi = new JMenu("工资管理");
+    private JMenu m_bangzhu=new JMenu("帮助");
+    private JMenuItem helpMenuItem=new JMenuItem("查看帮助");
     private JMenuItem mI[] = {new JMenuItem("密码重置"), new JMenuItem("退出系统")};
     private JMenuItem m_FMEdit = new JMenuItem("工资编辑");
     private JLabel l_ps, l_empid, l_fromdate, l_todate;
@@ -32,9 +34,31 @@ class MainFrame extends JFrame implements ActionListener {
         c.add(mb, BorderLayout.NORTH);
         mb.add(m_system);
         mb.add(m_gongzi);
+        mb.add(m_bangzhu);
         m_system.add(mI[0]);
         m_system.add(mI[1]);
         m_gongzi.add(m_FMEdit);
+        m_bangzhu.add(helpMenuItem);
+        helpMenuItem.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this,
+                    "                      Editer Version 1.0  TIME:2023/5/21\n "+
+                            "                              作者：郑景元 陈黄未 徐程\n" +
+                            "GitHub开源 ：https://github.com/ziyi0227/JavaStaffManageProject1   \n" +
+                            "实现功能：\n" +
+                            "1.注册登录\n" +
+                            "2.找回密码\n" +
+                            "3.修改密码\n" +
+                            "4.显示所有员工工资\n" +
+                            "5.根据时间查询\n" +
+                            "6.发送邮箱验证码\n" +
+                            "功能使用介绍：\n" +
+                            "本程序含系统管理与工资管理两部分\n" +
+                            "1.在工资管理中：使用者在工资编辑中可使用录入、修改、删除、查询、清空等功能，方便\n" +
+                            "得将公司员工的基本信息（姓名、工号、工资、津贴）以表格呈现,功能强大格式优美。\n" +
+                            "2.在系统管理中：使用者可使用密码重置与退出系统功能，方便使用者操作\n" +
+                            "3.在主界面：使用者可根据提示信息查询\n"
+                            , "帮助", JOptionPane.INFORMATION_MESSAGE);
+        });
         m_FMEdit.addActionListener(this);
         mI[0].addActionListener(this);
         mI[1].addActionListener(this);

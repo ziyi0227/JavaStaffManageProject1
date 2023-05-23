@@ -12,7 +12,7 @@ class ModifyPwdFrame extends JFrame implements ActionListener {
 
     public ModifyPwdFrame() {
         super("修改密码");
-        l_oldPWD = new JLabel("  旧密码:          ");
+        l_oldPWD = new JLabel("   旧密码：      ");
         l_newPWD = new JLabel("   新密码：      ");
         l_newPWDAgain = new JLabel("确认新密码：");
         t_oldPWD = new JPasswordField(15);

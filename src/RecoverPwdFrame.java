@@ -15,9 +15,9 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
     private JButton b_ok, b_cancel;
     public RecoverPwdFrame (){
         super("\u627e\u56de\u5bc6\u7801");
-        l_user = new JLabel("\u7528\u6237\u540d\uff1a");
-        l_email = new JLabel("\u90ae\u7bb1\uff1a");
-        l_Pwd = new JLabel("\u65b0\u5bc6\u7801\uff1a");
+        l_user = new JLabel("\u7528\u6237\u540d\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
+        l_email = new JLabel("\u90ae\u7bb1\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
+        l_Pwd = new JLabel("\u65b0\u5bc6\u7801\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
         l_PwdAgain = new JLabel("\u786e\u8ba4\u65b0\u5bc6\u7801\uff1a");
         t_user = new JTextField(15);
         t_email = new JTextField(15);
@@ -27,7 +27,7 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         b_cancel = new JButton("\u53d6\u6d88");
 
         Container c = this.getContentPane();
-        c.setLayout(new FlowLayout());
+        c.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
 
         c.add(l_user);
         c.add(t_user);
@@ -53,6 +53,7 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (b_cancel == e.getSource()) {
+
             this.dispose();
         } else if (b_ok == e.getSource())        //修改密码
         {
@@ -77,10 +78,10 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
             // 调用修改密码方法
             boolean result = modifyPassword(username, email, password);
             if (result) {
-                JOptionPane.showMessageDialog(this, "密码修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u5bc6\u7801\u4fee\u6539\u6210\u529f\uff01", "\u63d0\u793a", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "用户名或邮箱不正确！", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "\u7528\u6237\u540d\u6216\u90ae\u7bb1\u4e0d\u6b63\u786e\uff01", "\u9519\u8bef", JOptionPane.ERROR_MESSAGE);
             }
 
         }

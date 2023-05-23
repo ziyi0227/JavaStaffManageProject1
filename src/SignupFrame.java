@@ -219,7 +219,7 @@ public class SignupFrame extends JFrame implements ActionListener{
             }
         }
     }
-    private void sendVerificationCode() {
+   private void sendVerificationCode() {
         String email = t_email.getText().trim();
         correctCode = EmailSender.sendMail(email);
 
