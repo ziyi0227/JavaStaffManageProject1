@@ -26,27 +26,70 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         b_ok = new JButton("\u786e\u5b9a");
         b_cancel = new JButton("\u53d6\u6d88");
 
-        Container c = this.getContentPane();
-        c.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
 
-        c.add(l_user);
-        c.add(t_user);
-        c.add(l_email);
-        c.add(t_email);
-        c.add(l_Pwd);
-        c.add(t_Pwd);
-        c.add(l_PwdAgain);
-        c.add(t_PwdAgain);
-        c.add(b_ok);
-        c.add(b_cancel);
+
+
+        this.setSize(700, 440);
+        this.setLocationRelativeTo((Component)null);
+        this.setResizable(false);
+        //this.setVisible(true);
+        Container contentPane = this.getContentPane();
+        contentPane.setLayout((LayoutManager)null);
+
+        ImageIcon icon = new ImageIcon("..\\JavaStaffManageProject1\\Image\\LoginFrameCover.png");
+        JLabel jLabel = new JLabel(icon);
+        jLabel.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+        this.getContentPane().add(jLabel);
+        this.repaint();
+        this.setVisible(true);
+
+        //Container c = this.getContentPane();
+       // c.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
+
+
+
+        //c.add(l_user);
+        //c.add(t_user);
+        //c.add(l_email);
+        //c.add(t_email);
+        //c.add(l_Pwd);
+        //c.add(t_Pwd);
+        //c.add(l_PwdAgain);
+        //c.add(t_PwdAgain);
+        //c.add(b_ok);
+        //c.add(b_cancel);
+
+        contentPane.add(l_user);
+        contentPane.add(t_user);
+        contentPane.add(l_email);
+        contentPane.add(t_email);
+        contentPane.add(l_Pwd);
+        contentPane.add(t_Pwd);
+        contentPane.add(l_PwdAgain);
+        contentPane.add(t_PwdAgain);
+        contentPane.add(b_ok);
+        contentPane.add(b_cancel);
+
+        this.l_user.setBounds(380, 60, 80, 30);
+        this.t_user.setBounds(470, 60, 180, 30);
+        this.l_email.setBounds(380, 110, 80, 30);
+        this.t_email.setBounds(470, 110, 180, 30);
+        this.l_Pwd.setBounds(380, 160, 120, 30);
+        this.t_Pwd.setBounds(470, 160, 180, 30);
+        this.l_PwdAgain.setBounds(380, 210, 120, 30);
+        this.t_PwdAgain.setBounds(470, 210, 180, 30);
+        //this.l_verificationCode.setBounds(380, 260, 80, 30);
+        //this.t_verificationCode.setBounds(470, 260, 110, 30);
+        this.b_ok.setBounds(590, 260, 60, 30);
+        this.b_cancel.setBounds(490, 260, 60, 30);
 
         b_ok.addActionListener(this);
         b_cancel.addActionListener(this);
 
-        this.setResizable(false);
-        this.setSize(280, 200);
-        Dimension screen = this.getToolkit().getScreenSize();
-        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
+        //this.setResizable(false);
+        //this.setSize(280, 200);
+        //Dimension screen = this.getToolkit().getScreenSize();
+        //this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
         this.setVisible(true);
     }
 
