@@ -42,32 +42,6 @@ class LoginFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
- /*   private void InitFrame() {
-        this.setResizable(false);
-        this.setSize(700, 500);
-        Dimension screen = this.getToolkit().getScreenSize();
-        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        l_user = new JLabel("用户名：", JLabel.RIGHT);
-        l_pwd = new JLabel(" 密码：", JLabel.RIGHT);
-        t_user = new JTextField(35);
-        t_pwd = new JPasswordField(36);
-
-        Container c = this.getContentPane();
-        c.setLayout(null); // 设置内容面板的布局管理器为 null
-        c.add(l_user);
-        c.add(t_user);
-        c.add(l_pwd);
-        c.add(t_pwd);
-        c.add(b_ok);
-        c.add(b_register);
-        c.add(b_cancel);
-
-        this.setVisible(true);
-    }*/
-
     private void InitFrame() {
         // 设置窗体大小和位置
         this.setSize(700, 440);
