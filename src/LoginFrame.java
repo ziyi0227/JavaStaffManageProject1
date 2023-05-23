@@ -20,7 +20,7 @@ class LoginFrame extends JFrame implements ActionListener {
     JPasswordField t_pass = new JPasswordField();
     JButton b_signup = new JButton("×¢²á");
     JButton b_login = new JButton("µÇÂ¼");
-    JButton b_find = new JButton("ÕÒ»ØÃÜÂë");
+    UnderlineButton b_find = new UnderlineButton("ÕÒ»ØÃÜÂë");
     //JButton b_modify = new JButton("ÐÞ¸ÄÃÜÂë");
 
 
@@ -85,7 +85,14 @@ class LoginFrame extends JFrame implements ActionListener {
         b_signup.setBounds(410, 260, 80, 30);
         b_login.setBounds(540, 260, 80, 30);
         //b_modify.setBounds(500, 380, 90, 20);
-        b_find.setBounds(590, 380, 90, 20);
+        b_find.setBounds(610, 380, 50, 20);
+
+        b_find.setBorder(null);
+        b_find.setOpaque(false);
+        b_find.setContentAreaFilled(false);
+        Color color = new Color(0, 0, 255); // À¶É«
+        b_find.setForeground(color);
+        b_find.setUnderline(true);
 
         contentPane.add(l_user);
         contentPane.add(t_user);
@@ -164,3 +171,32 @@ class LoginFrame extends JFrame implements ActionListener {
     }
 }
 
+class UnderlineButton extends JButton {
+    private boolean underline;
+
+    public UnderlineButton(String text) {
+        super(text);
+        underline = false;
+    }
+
+    public void setUnderline(boolean underline) {
+        this.underline = underline;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        super.paintComponent(g2d);
+        if (underline) {
+            FontMetrics fm = g2d.getFontMetrics();
+            int textWidth = fm.stringWidth(getText());
+            int textHeight = fm.getHeight();
+            int textBaseline = fm.getAscent();
+
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setColor(getForeground());
+            g2d.drawLine(0, textBaseline + 1, textWidth, textBaseline + 1);
+        }
+        g2d.dispose();
+    }
+}
