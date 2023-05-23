@@ -90,7 +90,7 @@ class LoginFrame extends JFrame implements ActionListener {
         b_find.setBorder(null);
         b_find.setOpaque(false);
         b_find.setContentAreaFilled(false);
-        Color color = new Color(0, 0, 255); // À¶É«
+        Color color = new Color(0, 60, 255); // À¶É«
         b_find.setForeground(color);
         b_find.setUnderline(true);
 
