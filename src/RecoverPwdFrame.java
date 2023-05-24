@@ -13,6 +13,12 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
     private JTextField t_user, t_email;
     private JPasswordField t_Pwd, t_PwdAgain;
     private JButton b_ok, b_cancel;
+    JLabel l_verificationCode = new JLabel("\u9a8c\u8bc1\u7801\uff1a");
+    JTextField t_verificationCode = new JTextField();
+    JButton b_sendCode = new JButton("\u53d1\u9001");
+    private int correctCode;
+    private Timer timer;
+    private int countdown;
     public RecoverPwdFrame (){
         super("\u627e\u56de\u5bc6\u7801");
         l_user = new JLabel("\u7528\u6237\u540d\uff1a\u0020\u0020\u0020\u0020\u0020\u0020\u0020");
@@ -44,7 +50,7 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         this.setVisible(true);
 
         //Container c = this.getContentPane();
-       // c.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
+        //c.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
 
 
 
@@ -69,6 +75,9 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         contentPane.add(t_PwdAgain);
         contentPane.add(b_ok);
         contentPane.add(b_cancel);
+        contentPane.add(this.l_verificationCode);
+        contentPane.add(this.t_verificationCode);
+        contentPane.add(this.b_sendCode);
 
         this.l_user.setBounds(380, 60, 80, 30);
         this.t_user.setBounds(470, 60, 180, 30);
@@ -78,10 +87,11 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         this.t_Pwd.setBounds(470, 160, 180, 30);
         this.l_PwdAgain.setBounds(380, 210, 120, 30);
         this.t_PwdAgain.setBounds(470, 210, 180, 30);
-        //this.l_verificationCode.setBounds(380, 260, 80, 30);
-        //this.t_verificationCode.setBounds(470, 260, 110, 30);
-        this.b_ok.setBounds(590, 260, 60, 30);
-        this.b_cancel.setBounds(490, 260, 60, 30);
+        this.l_verificationCode.setBounds(380, 260, 80, 30);
+        this.t_verificationCode.setBounds(470, 260, 110, 30);
+        this.b_sendCode.setBounds(590, 260, 60, 30);
+        this.b_ok.setBounds(560, 320, 60, 30);
+        this.b_cancel.setBounds(460, 320, 60, 30);
 
         b_ok.addActionListener(this);
         b_cancel.addActionListener(this);
@@ -91,6 +101,8 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         //Dimension screen = this.getToolkit().getScreenSize();
         //this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
         this.setVisible(true);
+
+
     }
 
     @Override
@@ -157,5 +169,20 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
             e.printStackTrace();
             return false;
         }
+    }
+    private void sendVerificationCode() {
+        String email = this.t_email.getText().trim();
+        this.correctCode = EmailSender.sendMail(email);
+        this.countdown = 60;
+        this.timer.start();
+    }
+
+    private void resetVerificationCode() {
+        this.t_verificationCode.setText("");
+    }
+
+    public boolean judgeVerificationCode(String code) {
+        String correctCode = "" + this.correctCode;
+        return correctCode.equals(code);
     }
 }
