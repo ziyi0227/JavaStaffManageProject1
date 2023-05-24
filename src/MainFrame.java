@@ -43,7 +43,8 @@ class MainFrame extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this,
                     "                      Editer Version 1.0  TIME:2023/5/21\n "+
                             "                              作者：郑景元 陈黄未 徐程\n" +
-                            "GitHub开源 ：https://github.com/ziyi0227/JavaStaffManageProject1   \n" +
+                            "GitHub开源 ：<html>请<a" +
+                            " href=\"https://github.com/ziyi0227/JavaStaffManageProject1\">点击这里</a>访问我们的网站</html>\n" +
                             "实现功能：\n" +
                             "1.注册登录\n" +
                             "2.找回密码\n" +
