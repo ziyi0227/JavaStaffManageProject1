@@ -116,6 +116,12 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
 
             }
         });
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+
+            }
+        });
 
 
 
