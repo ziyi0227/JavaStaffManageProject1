@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,16 +104,40 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
         //this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
         this.setVisible(true);
 
+        //this.b_register.addActionListener(this);
+        this.b_sendCode.addActionListener(this);
+        this.timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                --RecoverPwdFrame.this.countdown;
+                if (RecoverPwdFrame.this.countdown == 0) {
+                    RecoverPwdFrame.this.resetVerificationCode();
+                    RecoverPwdFrame.this.timer.stop();
+                }
+
+            }
+        });
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+
+            }
+        });
+
+
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.b_sendCode) {
+            this.sendVerificationCode();
+        }
         if (b_cancel == e.getSource()) {
 
             this.dispose();
         } else if (b_ok == e.getSource())        //修改密码
         {
+
             String username = t_user.getText().trim();
             String email = t_email.getText().trim();
             String password = new String(t_Pwd.getPassword());
@@ -129,7 +155,11 @@ public class RecoverPwdFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this,"\u4e24\u6b21\u8f93\u5165\u7684\u5bc6\u7801\u4e0d\u4e00\u81f4\uff0c\u8bf7\u91cd\u65b0\u8f93\u5165","\u63d0\u793a",JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-
+            //判断验证码是否正确
+            String code = this.t_verificationCode.getText().trim();
+            if (!this.judgeVerificationCode(code)) {
+                JOptionPane.showMessageDialog(this, "验证码错误", "提示", 1);
+                return;}
             // 调用修改密码方法
             boolean result = modifyPassword(username, email, password);
             if (result) {
