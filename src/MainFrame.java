@@ -134,6 +134,7 @@ class MainFrame extends JFrame implements ActionListener {
             table.setValueAt(rs.getString("sname"), row1, 2);
             table.setValueAt(rs.getDouble("gongzi"), row1, 3);
             table.setValueAt(rs.getDouble("jintie"), row1, 4);
+            table.setValueAt(rs.getDouble("gongzi")+rs.getDouble("jintie"),row1,5);
             row1++;
         }
 
@@ -180,6 +181,7 @@ class MainFrame extends JFrame implements ActionListener {
                     table.setValueAt(rs.getString("sname"), row, 2);
                     table.setValueAt(rs.getDouble("gongzi"), row, 3);
                     table.setValueAt(rs.getDouble("jintie"), row, 4);
+                    table.setValueAt(rs.getDouble("gongzi")+rs.getDouble("jintie"),row,5);
                     row++;
                 }
             } catch (SQLException ex) {
@@ -200,6 +202,7 @@ class MainFrame extends JFrame implements ActionListener {
                     table.setValueAt(rs.getString("sname"), row1, 2);
                     table.setValueAt(rs.getDouble("gongzi"), row1, 3);
                     table.setValueAt(rs.getDouble("jintie"), row1, 4);
+                    table.setValueAt(rs.getDouble("gongzi")+rs.getDouble("jintie"),row1,5);
                     row1++;
                 }
             } catch (SQLException ex) {
@@ -231,6 +234,7 @@ class MainFrame extends JFrame implements ActionListener {
                     table.setValueAt(rs.getString("sname"), row, 2);
                     table.setValueAt(rs.getDouble("gongzi"), row, 3);
                     table.setValueAt(rs.getDouble("jintie"), row, 4);
+                    table.setValueAt(rs.getDouble("gongzi")+rs.getDouble("jintie"),row,5);
                     row++;
                 }
             } catch (SQLException ex) {
