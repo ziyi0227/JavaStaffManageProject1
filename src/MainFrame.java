@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
 import java.sql.*;
 
 //主界面
@@ -40,25 +43,38 @@ class MainFrame extends JFrame implements ActionListener {
         m_gongzi.add(m_FMEdit);
         m_bangzhu.add(helpMenuItem);
         helpMenuItem.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this,
-                    "                      Editer Version 1.0  TIME:2023/5/21\n "+
-                            "                              作者：郑景元 陈黄未 徐程\n" +
-                            "GitHub开源 ：<html>请<a" +
-                            " href=\"https://github.com/ziyi0227/JavaStaffManageProject1\">点击这里</a>访问我们的网站</html>\n" +
-                            "实现功能：\n" +
-                            "1.注册登录\n" +
-                            "2.找回密码\n" +
-                            "3.修改密码\n" +
-                            "4.显示所有员工工资\n" +
-                            "5.根据时间查询\n" +
-                            "6.发送邮箱验证码\n" +
-                            "功能使用介绍：\n" +
-                            "本程序含系统管理与工资管理两部分\n" +
-                            "1.在工资管理中：使用者在工资编辑中可使用录入、修改、删除、查询、清空等功能，方便\n" +
-                            "得将公司员工的基本信息（姓名、工号、工资、津贴）以表格呈现,功能强大格式优美。\n" +
-                            "2.在系统管理中：使用者可使用密码重置与退出系统功能，方便使用者操作\n" +
-                            "3.在主界面：使用者可根据提示信息查询\n"
-                            , "帮助", JOptionPane.INFORMATION_MESSAGE);
+            JLabel label = new JLabel("<html>" +
+                    "                      Editer Version 1.0  TIME:2023/5/21<br>" +
+                    "                              作者：郑景元 陈黄未 徐程<br>" +
+                    "GitHub开源 ：请访问我们的网站：<a href=\"https://github.com/ziyi0227/JavaStaffManageProject1\" style=\"color: blue; text-decoration: underline;\">https://github.com/ziyi0227/JavaStaffManageProject1</a><br>" +
+                    "实现功能：<br>" +
+                    "1.注册登录<br>" +
+                    "2.找回密码<br>" +
+                    "3.修改密码<br>" +
+                    "4.显示所有员工工资<br>" +
+                    "5.根据时间查询<br>" +
+                    "6.发送邮箱验证码<br>" +
+                    "功能使用介绍：<br>" +
+                    "本程序含系统管理与工资管理两部分<br>" +
+                    "1.在工资管理中：使用者在工资编辑中可使用录入、修改、删除、查询、清空等功能，方便得将公司员工的基本信息（姓名、工号、工资、津贴）以表格呈现，功能强大格式优美。<br>" +
+                    "2.在系统管理中：使用者可使用密码重置与退出系统功能，方便使用者操作<br>" +
+                    "3.在主界面：使用者可根据提示信息查询<br>" +
+                    "</html>");
+
+            label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            label.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() > 0) {
+                        try {
+                            Desktop.getDesktop().browse(new URI("https://github.com/ziyi0227/JavaStaffManageProject1"));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            JOptionPane.showMessageDialog(this, label, "帮助", JOptionPane.INFORMATION_MESSAGE);
         });
         m_FMEdit.addActionListener(this);
         mI[0].addActionListener(this);
